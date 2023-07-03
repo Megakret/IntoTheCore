@@ -7,17 +7,13 @@ public class GrabController : MonoCache
     [SerializeField] Transform camTransform;
     
     [SerializeField] float grabDistance = 5f;
-    [SerializeField] float helpRayDistance; // длина луча для проверки на препятствие перед коробкой
-    [SerializeField] LayerMask HelpLayerMask; // слои для вспомогательного луча, который находит препятствие между игроком и объектом
     [Header("Grabbing")]
-    [SerializeField] LayerMask WhatIsGrabbable;
     [SerializeField] float ForceMultiplier;
-    [SerializeField] float maxThrowSpeed;
-    
+   
 
     private Transform grabbedTransform; //взятый объект
     private float savedDistance;
-    private Rigidbody grabbedRb;
+    private GrabbableObject grabbed;
     public override void OnUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -25,31 +21,35 @@ public class GrabController : MonoCache
             grabbedTransform = RaycastGet(); //получение объекта, который мы хотим взять
             if (grabbedTransform)
             {
-                grabbedRb = grabbedTransform.GetComponent<Rigidbody>();
-                grabbedRb.useGravity = false;
                 savedDistance = (transform.position - grabbedTransform.position).magnitude;
             }
         }
         if (Input.GetKeyUp(KeyCode.Mouse0)) //отпускание объекта
         {
-            if (grabbedRb)
+            grabbedTransform = null;
+            if(grabbed != null)
             {
-                grabbedRb.useGravity = true;
-                grabbedRb.velocity = Vector3.ClampMagnitude(grabbedRb.velocity, maxThrowSpeed);
+                grabbed.UnHoldObject();
+                grabbed = null;
             }
             
-            grabbedTransform = null;
-            grabbedRb = null;
+            
+
         }
     }
     private Transform RaycastGet()
     {
         
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, camTransform.forward, out hit, grabDistance, WhatIsGrabbable)) // рейкаст из центра камеры
+        if (Physics.Raycast(transform.position, camTransform.forward, out hit, grabDistance)) // рейкаст из центра камеры
         {
+            
             GameObject obj = hit.collider.gameObject;
-            return obj.transform;
+            if (obj.TryGetComponent(out grabbed))
+            {
+                return obj.transform;
+            }
+            
             
         }
         return null; // Если объекта, который мы можем взять нет на пути, то мы ничего не берем.
@@ -63,8 +63,7 @@ public class GrabController : MonoCache
         }
 
         Vector3 holdPoint = camTransform.position + camTransform.forward * savedDistance; // точка куда будет перемещаться объект
-        Vector3 forceVector = holdPoint - grabbedTransform.position; 
-        grabbedRb.velocity = forceVector * ForceMultiplier;
+        grabbed.HoldObject(holdPoint, ForceMultiplier);
         
           
     }
