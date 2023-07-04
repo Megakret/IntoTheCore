@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Gate : MonoBehaviour, ITriggerable
 {
+    Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     public void Enable()
     {
-        gameObject.SetActive(false);
+        animator.SetTrigger("Open");
     }
     public void Disable()
     {
-        gameObject.SetActive(true);
+        animator.SetTrigger("Close");
     }
 }
