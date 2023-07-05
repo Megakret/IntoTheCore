@@ -7,9 +7,11 @@ public class Lever : MonoBehaviour
     [Tooltip("Put gameobject with ITriggerable script here")]
     [SerializeField] private List<GameObject> objectsTriggerable;
     private List<ITriggerable> triggerables = new List<ITriggerable>();
-
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject helpCanvas; // Канвас, отображающий кнопку взаимодействия
+    [SerializeField] private float interactCd;
     private bool isActive = false;
+    private bool canActivate = true;
 
     private void Start()
     {
@@ -21,15 +23,23 @@ public class Lever : MonoBehaviour
 
     public void Interacted()
     {
+        if (!canActivate)
+        {
+            return;
+        }
+
         isActive = !isActive;
         if (isActive)
         {
             EnableAll();
+            animator.SetTrigger("PullDown");
         }
         else
         {
             DisableAll();
+            animator.SetTrigger("PullUp");
         }
+        StartCoroutine(Cooldown());
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -60,6 +70,12 @@ public class Lever : MonoBehaviour
         {
             triggerable.Disable();
         }
+    }
+    IEnumerator Cooldown()
+    {
+        canActivate = false;
+        yield return new WaitForSeconds(interactCd);
+        canActivate = true;
     }
 
 }
