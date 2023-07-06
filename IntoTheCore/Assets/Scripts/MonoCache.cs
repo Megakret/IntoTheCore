@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonoCache : MonoBehaviour
 {
-
+    public bool CanPause = true;
     private void OnEnable()
     {
         UpdateManager.scripts.Add(this);
