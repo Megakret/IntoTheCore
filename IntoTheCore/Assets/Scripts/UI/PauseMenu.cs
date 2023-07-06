@@ -20,11 +20,13 @@ public class PauseMenu : MonoCache
             {
                 UpdateManager.PauseGame();
                 canvas.SetActive(true);
+                Cursor.lockState = CursorLockMode.Confined;
             }
             else
             {
                 UpdateManager.ResumeGame();
                 canvas.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
             }
 
         }

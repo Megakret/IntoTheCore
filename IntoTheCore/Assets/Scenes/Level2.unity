@@ -716,7 +716,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 155683308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1691776628}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Replay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &155683308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16221,6 +16233,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1691776628, guid: 5f8348fa0d3534c4fbcb002d48e01775, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1562778145}
     - target: {fileID: 254841837934230647, guid: 5f8348fa0d3534c4fbcb002d48e01775, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -17483,25 +17499,17 @@ PrefabInstance:
       objectReference: {fileID: 569572775}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70a497b7d213c942add3ad40b04cd5a, type: 3}
---- !u!1 &1691776625 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5334849778408073594, guid: 5f8348fa0d3534c4fbcb002d48e01775, type: 3}
+--- !u!114 &1691776628 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1691776628, guid: 5f8348fa0d3534c4fbcb002d48e01775, type: 3}
   m_PrefabInstance: {fileID: 1337941342}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1691776628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691776625}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4975c75cbfb8bb24f992057ebeb94550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPause: 0
-  canvas: {fileID: 1562778145}
 --- !u!1 &1781139380
 GameObject:
   m_ObjectHideFlags: 0
