@@ -14,7 +14,6 @@ public class PlayerController : MonoCache
 
     private Vector3 fallVelocity;
     private bool moveLock = false;
-
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -35,8 +34,7 @@ public class PlayerController : MonoCache
     }
     void GravityCheck()
     {
-        bool grounded = Physics.CheckSphere(GroundCheck.position, checkRadius, whatIsGround);
-        if (!grounded)
+        if (IsGrounded())
         {
             fallVelocity.y += gravity * Time.deltaTime;
         }
@@ -52,5 +50,9 @@ public class PlayerController : MonoCache
     public void EnableControl()
     {
         moveLock = false;
+    }
+    public bool IsGrounded()
+    {
+        return Physics.CheckSphere(GroundCheck.position, checkRadius, whatIsGround);
     }
 }
