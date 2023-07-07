@@ -7,8 +7,8 @@ public class Button : MonoBehaviour
 {
     [Tooltip("Put gameobject with ITriggerable script here")]
     [SerializeField] private List<GameObject> objectsTriggerable;
-    public Action<Button> buttonEnabled;
-    public Action<Button> buttonDisabled;
+    public Action buttonChanged;
+    public bool isEnabled { get; private set; }
     private List<ITriggerable> triggerables = new List<ITriggerable>();
     private void Start()
     {
@@ -22,17 +22,26 @@ public class Button : MonoBehaviour
         if (collision.gameObject.CompareTag("ButtonHolder"))
         {
             EnableAll();
+            isEnabled = true;
+            buttonChanged?.Invoke();
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("ButtonHolder"))
         {
+
             DisableAll();
+            isEnabled = false;
+            buttonChanged?.Invoke();
         }
     }
     private void EnableAll()
     {
+        if (triggerables.Count == 0)
+        {
+            return;
+        }
         foreach (ITriggerable triggerable in triggerables)
         {
             triggerable.Enable();
@@ -40,6 +49,10 @@ public class Button : MonoBehaviour
     }
     private void DisableAll()
     {
+        if (triggerables.Count == 0)
+        {
+            return;
+        }
         foreach (ITriggerable triggerable in triggerables)
         {
             triggerable.Disable();

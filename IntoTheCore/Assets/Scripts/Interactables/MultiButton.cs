@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MultiButton : MonoBehaviour, ITriggerable
+public class MultiButton : MonoBehaviour
 {
     // Start is called before the first frame update
     [Tooltip("Put gameobject with ITriggerable script here")]
     [SerializeField] private List<GameObject> objectsTriggerable;
-    [SerializeField] private int maxInteractors; // количество требуемых активированных интеракторов
+    [SerializeField] private List<Button> buttons; // количество требуемых активированных интеракторов
     private List<ITriggerable> triggerables = new List<ITriggerable>();
-    private int buttonsActivated; //количество активированных интеракторов на данный момент
+    private bool isEnabled;
 
     void Start()
     {
         foreach (GameObject obj in objectsTriggerable)
         {
             triggerables.Add(obj.GetComponent<ITriggerable>());
+        }
+        foreach (Button button in buttons)
+        {
+            button.buttonChanged = Triggered;
         }
     }
     private void OnDisable()
@@ -38,22 +42,32 @@ public class MultiButton : MonoBehaviour, ITriggerable
             triggerable.Disable();
         }
     }
-
-    public void Enable()
+    private bool CheckButtons()
     {
-        buttonsActivated++;
-        if (buttonsActivated == maxInteractors)
+        int count = 0;
+        foreach (Button button in buttons)
+        {
+            if (button.isEnabled)
+            {
+                count++;
+            }
+        }
+        return count == buttons.Count;
+    }
+    public void Triggered()
+    {
+        if (CheckButtons())
         {
             EnableAll();
+            isEnabled = true;
+            Debug.Log("Enable");
+        }
+        else if(isEnabled)
+        {
+            DisableAll();
+            isEnabled = false;
+            Debug.Log("Disabled");
         }
     }
 
-    public void Disable()
-    {
-        buttonsActivated--;
-        if (buttonsActivated < maxInteractors)
-        {
-            DisableAll();
-        }
-    }
 }
