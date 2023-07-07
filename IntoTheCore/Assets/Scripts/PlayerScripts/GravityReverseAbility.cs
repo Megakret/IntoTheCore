@@ -7,6 +7,7 @@ public class GravityReverseAbility : MonoCache
     [SerializeField] private float reverseCd;
     private PlayerController playerController;
     private bool canReverse = true;
+    private bool isReversed = false;
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -16,7 +17,12 @@ public class GravityReverseAbility : MonoCache
         if (Input.GetKeyDown(KeyCode.Space) & playerController.IsGrounded() & canReverse)
         {
             Events.GravityReverse?.Invoke();
+            isReversed = !isReversed;
+            playerController.ReverseGravity();
             Debug.Log("REVERSE");
+            transform.Rotate(0,0,180);
+
+            
             StartCoroutine(CdCounter());
         }
     }

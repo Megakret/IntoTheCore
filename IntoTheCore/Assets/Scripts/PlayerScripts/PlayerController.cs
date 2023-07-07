@@ -13,6 +13,7 @@ public class PlayerController : MonoCache
     [SerializeField] private LayerMask whatIsGround;
 
     private Vector3 fallVelocity;
+    private float adjustingGravity = -0.2f;
     private bool moveLock = false;
     private void Start()
     {
@@ -34,13 +35,13 @@ public class PlayerController : MonoCache
     }
     void GravityCheck()
     {
-        if (IsGrounded())
+        if (!IsGrounded())
         {
             fallVelocity.y += gravity * Time.deltaTime;
         }
         else
         {
-            fallVelocity.y = -0.2f;
+            fallVelocity.y = adjustingGravity;
         }
     }
     public void DisableControl()
@@ -54,5 +55,10 @@ public class PlayerController : MonoCache
     public bool IsGrounded()
     {
         return Physics.CheckSphere(GroundCheck.position, checkRadius, whatIsGround);
+    }
+    public void ReverseGravity()
+    {
+        gravity *= -1;
+        adjustingGravity *= -1;
     }
 }
