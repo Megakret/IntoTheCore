@@ -35,5 +35,9 @@ public class PauseMenu : MonoCache
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void Return()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     
 }

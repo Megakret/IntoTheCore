@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanPause: 1
   camTransform: {fileID: 691330677}
-  grabDistance: 5
+  grabDistance: 2
   ForceMultiplier: 50
 --- !u!114 &3811830652228253735
 MonoBehaviour:
@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55909ba9d68e8e94a89a01ec0c1dc626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanPause: 1
   reverseCd: 1
 --- !u!1 &3811830652882557463
 GameObject:
