@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 public class SettingsUI : MonoBehaviour
 {
     public GameObject MainMenuCanvas;
     public GameObject AmbientCheckmark;
     public GameObject PostProcessingCheckmark;
+    public AudioMixer music;
 
     public static bool PostProcessingEnabled = true;
     public static bool AmbientEnabled = true;
@@ -20,6 +21,16 @@ public class SettingsUI : MonoBehaviour
     {
         AmbientEnabled = !AmbientEnabled;
         AmbientCheckmark.SetActive(AmbientEnabled);
+        if (AmbientEnabled)
+        {
+            music.SetFloat("MusicVolume", 0f);
+        }
+        else
+        {
+            music.SetFloat("MusicVolume", -80f);
+        }
+        
+        
     }
     public void CloseUI()
     {
