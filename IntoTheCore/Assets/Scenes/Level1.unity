@@ -10366,6 +10366,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97bc482b8b390ec40b06950d682d65ae, type: 3}
+--- !u!20 &741029811 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 691330676, guid: 97bc482b8b390ec40b06950d682d65ae, type: 3}
+  m_PrefabInstance: {fileID: 741029810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &752884726
 Mesh:
   m_ObjectHideFlags: 0
@@ -43422,6 +43427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Update
       objectReference: {fileID: 0}
+    - target: {fileID: 5362633881531788108, guid: 5f8348fa0d3534c4fbcb002d48e01775, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 741029811}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f8348fa0d3534c4fbcb002d48e01775, type: 3}
 --- !u!1001 &5544386862267256250

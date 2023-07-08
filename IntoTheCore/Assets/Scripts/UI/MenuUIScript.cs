@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuUIScript : MonoBehaviour
 {
-    GameObject SettingsCanvas;
+    public GameObject SettingsCanvas;
     public void Play()
     {
         SceneManager.LoadScene("Level1");
